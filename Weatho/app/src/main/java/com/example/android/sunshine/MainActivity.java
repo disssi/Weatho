@@ -1,5 +1,5 @@
 
-package com.example.android.sunshine;
+package com.example.android.weatho;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,7 +25,7 @@ import com.example.android.sunshine.utilities.OpenWeatherJsonUtils;
 
 import java.net.URL;
 
-// COMPLETED (1) Implement the proper LoaderCallbacks interface and the methods of that interface
+
 public class MainActivity extends AppCompatActivity implements
         ForecastAdapter.ForecastAdapterOnClickHandler,
         LoaderCallbacks<String[]> {
@@ -55,21 +55,11 @@ public class MainActivity extends AppCompatActivity implements
         /* This TextView is used to display errors and will be hidden if there are no errors */
         mErrorMessageDisplay = (TextView) findViewById(R.id.tv_error_message_display);
 
-        /*
-         * LinearLayoutManager can support HORIZONTAL or VERTICAL orientations. The reverse layout
-         * parameter is useful mostly for HORIZONTAL layouts that should reverse for right to left
-         * languages.
-         */
+            
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         mRecyclerView.setLayoutManager(layoutManager);
-
-        /*
-         * Use this setting to improve performance if you know that changes in content do not
-         * change the child layout size in the RecyclerView
-         */
-        mRecyclerView.setHasFixedSize(true);
 
         /*
          * The ForecastAdapter is responsible for linking our weather data with the Views that
@@ -83,18 +73,8 @@ public class MainActivity extends AppCompatActivity implements
         /*
          * The ProgressBar that will indicate to the user that we are loading data. It will be
          * hidden when no data is loading.
-         *
-         * Please note: This so called "ProgressBar" isn't a bar by default. It is more of a
-         * circle. We didn't make the rules (or the names of Views), we just follow them.
          */
         mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
-
-        // COMPLETED (7) Remove the code for the AsyncTask and initialize the AsyncTaskLoader
-        /*
-         * This ID will uniquely identify the Loader. We can use it, for example, to get a handle
-         * on our Loader at a later point in time through the support LoaderManager.
-         */
-        int loaderId = FORECAST_LOADER_ID;
 
         /*
          * From MainActivity, we have implemented the LoaderCallbacks interface with the type of
@@ -104,13 +84,6 @@ public class MainActivity extends AppCompatActivity implements
          */
         LoaderCallbacks<String[]> callback = MainActivity.this;
 
-        /*
-         * The second parameter of the initLoader method below is a Bundle. Optionally, you can
-         * pass a Bundle to initLoader that you can then access from within the onCreateLoader
-         * callback. In our case, we don't actually use the Bundle, but it's here in case we wanted
-         * to.
-         */
-        Bundle bundleForLoader = null;
 
         /*
          * Ensures a loader is initialized and active. If the loader doesn't already exist, one is
@@ -120,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements
         getSupportLoaderManager().initLoader(loaderId, bundleForLoader, callback);
     }
 
-    // COMPLETED (2) Within onCreateLoader, return a new AsyncTaskLoader that looks a lot like the existing FetchWeatherTask.
     /**
      * Instantiate and return a new Loader for the given ID.
      *
@@ -137,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements
             /* This String array will hold and help cache our weather data */
             String[] mWeatherData = null;
 
-            // COMPLETED (3) Cache the weather data in a member variable and deliver it in onStartLoading.
             /**
              * Subclasses of AsyncTaskLoader must implement this to take care of loading their data.
              */
